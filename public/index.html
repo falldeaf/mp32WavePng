@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mp3 2 Wave.png</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content="" />
+	<style>
+		body {
+			background: rgb(17, 18, 19);
+		}
+
+		canvas {
+			margin: 20px;
+		}
+
+		#playhead {
+		position:absolute;
+		height:256px;
+		width:1px;
+		border-left:1px solid white;
+		top:0;
+		left:0;
+		}
+
+		#info {
+			color:white;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		#waves {
+			border: 1px solid #63aac0;
+			width: 100%;
+			overflow-x: scroll;
+			margin: 11px 0;
+			scrollbar-color: rgb(217,89,128) #284e60;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="info">
+		<div id="filename"> Mp3 -> SoundWave </div>
+		<div id="filename"> filename: <span class="values" id="filename-value"> --</span></div>
+		<div id="duration"> duration: <span class="values" id="duration-value"> --</span></div>
+		<button class="buttons" onclick="openFile()">open file</button>
+		<input id="threshold" width="5" type="text" value="30" />
+		<input id="tension" width="5" type="text" value="0.2" />
+		<button class="buttons" onclick="getimg()">download</button>
+		<button class="buttons" onclick="playsong()">play</button>
+	</div>
+
+	<div id="waves">
+		<div id="playhead"></div>
+		<canvas id="canvas-wave"></canvas>
+
+		<canvas id="canvas-line"></canvas>
+	</div>
+
+	<script src="curve-interpolator-transpiled.js"></script>
+	<script src="waves.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "mp32wavepng",
+  "version": "1.0.0",
+  "description": "Analyze an mp3 and convert it to a 1-dimensional image where the Red value represents volume over time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "falldeaf",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "curve-interpolator": "^2.0.8",
+    "express": "^4.18.1"
+  }
+}
