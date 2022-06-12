@@ -142,16 +142,31 @@ const createImg = normalizedData => {
 		drawCirc(x, y, ctx);
 	}
 
-	window.canvas_line = document.querySelector("#canvas-line");
-	canvas_line.width = normalizedData.length;
-	canvas_line.height = 1;
-	var ctx2 = canvas_line.getContext("2d");
-
 	const axis = 1;
 	var tension = +(document.querySelector("#tension").value);
 	console.log(tension);
 	window.interp = new CurveInterpolator(cpoints, { tension: tension });
 
+	let image_width;
+	//Find the smallest power of 2 for an image to store wave data
+	for(let i = 0; i < 11; i++) {
+		let width = Math.pow(2, i);
+		console.log(width);
+		console.log(`w:${normalizedData.length} > p:${Math.pow(width, 2)}`);
+		if(Math.pow(width, 2) > normalizedData.length ) {
+			console.log("Found it");
+			image_width = Math.pow(2, i);
+			break;
+		}
+	}
+	console.log("smallest width:" + image_width);
+
+	window.canvas_square = document.querySelector("#canvas-square");
+	canvas_square.width = image_width;
+	canvas_square.height = image_width;
+	var ctx2 = canvas_square.getContext("2d");
+
+	//Draw the curved path and store the data in an image
 	for (let i = 0; i < normalizedData.length; i++) {
 		ctx.fillStyle = colors[0];
 		interp_curve = interp.lookup(i, 0)
@@ -159,21 +174,7 @@ const createImg = normalizedData => {
 		ctx.fillRect(i, y, 1, 1);
 		
 		ctx2.fillStyle = `rgb(${255-y},0,0)`;
-		ctx2.fillRect(i, 0, 1, 1);
-	}
-
-	console.log("get image data");
-	var idata = ctx2.getImageData(0, 0, normalizedData.length, 256).data;
-
-	var shorter = idata.length;
-	for (var i = shorter; i > 0; i -= 4) {
-		var x = (i / 4) % normalizedData.length;
-		var y = Math.floor((i / 4) / 256);
-		if (idata[i + 1] > 0) {
-			var strength = Math.floor(y % 256);
-			ctx3.fillStyle = `rgb(${strength},0,0)`;
-			ctx3.fillRect(x, 0, 1, 1);
-		}
+		ctx2.fillRect(i%image_width, Math.floor(i/image_width), 1, 1);
 	}
 
 }
@@ -187,10 +188,10 @@ function drawCirc(x, y, context) {
 }
 
 function getimg() {
-	const canvas = window.canvas_line;
+	const canvas = window.canvas_square;
 	var anchor = document.createElement("a");
 	anchor.href = canvas.toDataURL("image/png");
-	anchor.download = "img.png";
+	anchor.download = window.url.split('.')[0] + ".png";
 	anchor.click();
 }
 

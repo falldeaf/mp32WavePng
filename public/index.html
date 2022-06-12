@@ -12,7 +12,7 @@
 		}
 
 		canvas {
-			margin: 20px;
+			margin: 4px;
 		}
 
 		#playhead {
@@ -37,8 +37,14 @@
 			scrollbar-color: rgb(217,89,128) #284e60;
 		}
 
+		#wave-img {
+			border: 1px solid #63aac0;
+			padding: 10px;
+		}
+
 		.ui-box {
 			margin-top: 10px;
+			color: #63aac0;
 		}
 
 		input {
@@ -51,14 +57,13 @@
 
 <body>
 	<div id="info">
-		<div class="ui-box" id="filename"> Mp3 -> SoundWave </div>
+		<div class="ui-box" id="title"> Mp3 -> SoundWave </div>
 		<div class="ui-box" id="filename"> filename: <span class="values" id="filename-value"> --</span></div>
 		<div class="ui-box" id="duration"> duration: <span class="values" id="duration-value"> --</span></div>
 		<div class="ui-box" id="threshold-box"> threshold: <input id="threshold" width="5" type="text" value="30" /></div>
 		<div class="ui-box" id="tension-box"> tension: <input id="tension" width="5" type="text" value="0.2" /></div>
 		<div class="ui-box" id="button-box">
 			<button class="buttons" onclick="openFile()">open file</button>
-			<button class="buttons" onclick="getimg()">download</button>
 			<button class="buttons" onclick="playsong()">play</button>
 		</div>
 	</div>
@@ -66,8 +71,11 @@
 	<div id="waves">
 		<div id="playhead"></div>
 		<canvas id="canvas-wave"></canvas>
+	</div>
 
-		<canvas id="canvas-line"></canvas>
+	<div id="wave-img">
+		<div class="ui-box" id="wave"> Sound Wave .png file <button class="buttons" onclick="getimg()">download</button> </div>
+		<canvas id="canvas-square"></canvas>
 	</div>
 
 	<script src="curve-interpolator-transpiled.js"></script>
