@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="" />
+	<link rel="icon" type="image/png" href="favicon.png">
 	<style>
 		body {
 			background: rgb(17, 18, 19);
@@ -35,19 +36,31 @@
 			margin: 11px 0;
 			scrollbar-color: rgb(217,89,128) #284e60;
 		}
+
+		.ui-box {
+			margin-top: 10px;
+		}
+
+		input {
+			border: 0;
+			background-color: rgb(217,89,128);
+			width:30px;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="info">
-		<div id="filename"> Mp3 -> SoundWave </div>
-		<div id="filename"> filename: <span class="values" id="filename-value"> --</span></div>
-		<div id="duration"> duration: <span class="values" id="duration-value"> --</span></div>
-		<button class="buttons" onclick="openFile()">open file</button>
-		<input id="threshold" width="5" type="text" value="30" />
-		<input id="tension" width="5" type="text" value="0.2" />
-		<button class="buttons" onclick="getimg()">download</button>
-		<button class="buttons" onclick="playsong()">play</button>
+		<div class="ui-box" id="filename"> Mp3 -> SoundWave </div>
+		<div class="ui-box" id="filename"> filename: <span class="values" id="filename-value"> --</span></div>
+		<div class="ui-box" id="duration"> duration: <span class="values" id="duration-value"> --</span></div>
+		<div class="ui-box" id="threshold-box"> threshold: <input id="threshold" width="5" type="text" value="30" /></div>
+		<div class="ui-box" id="tension-box"> tension: <input id="tension" width="5" type="text" value="0.2" /></div>
+		<div class="ui-box" id="button-box">
+			<button class="buttons" onclick="openFile()">open file</button>
+			<button class="buttons" onclick="getimg()">download</button>
+			<button class="buttons" onclick="playsong()">play</button>
+		</div>
 	</div>
 
 	<div id="waves">
