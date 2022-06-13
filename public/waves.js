@@ -1,3 +1,5 @@
+//Oops, confused block-size and threshold, gotta fix that!
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
@@ -64,7 +66,7 @@ const createImg = normalizedData => {
 
 	var threshold = parseInt(document.querySelector("#threshold").value);
 
-	var points = new Array(Math.floor(normalizedData.length / threshold)).fill(0);
+	var points = new Array(Math.floor(normalizedData.length / 30)).fill(0);
 	console.log("Number of points: " + points.length);
 
 	window.canvas = document.querySelector("#canvas-wave");
@@ -134,18 +136,18 @@ const createImg = normalizedData => {
 	ctx.stroke();
 
 
-	var cpoints = [];
+	window.cpoints = [];
 	for (const [index, point] of points.entries()) {
 		var x = index * 30 + threshold / 2;
 		var y = 255 - point;
-		cpoints.push([x,y]);
+		window.cpoints.push([x,y]);
 		drawCirc(x, y, ctx);
 	}
 
 	const axis = 1;
 	var tension = +(document.querySelector("#tension").value);
 	console.log(tension);
-	window.interp = new CurveInterpolator(cpoints, { tension: tension });
+	window.interp = new CurveInterpolator(window.cpoints, { tension: tension });
 
 	let image_width;
 	//Find the smallest power of 2 for an image to store wave data
@@ -176,7 +178,18 @@ const createImg = normalizedData => {
 		ctx2.fillStyle = `rgb(${255-y},0,0)`;
 		ctx2.fillRect(i%image_width, Math.floor(i/image_width), 1, 1);
 	}
+}
 
+function renderGraph() {
+
+}
+
+document.querySelector('#canvas-wave').onmousedown = function(e){
+	const rect = this.getBoundingClientRect();
+	const x = e.pageX-rect.left;
+	const y = 255-(e.pageY-rect.top);
+
+	console.log(x % 30);	
 }
 
 function drawCirc(x, y, context) {
