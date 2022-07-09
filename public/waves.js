@@ -1,3 +1,10 @@
+let wave_data = {
+	threshold: 30,
+	tension: 0.2,
+	block_size: 30
+
+}
+
 //Oops, confused block-size and threshold, gotta fix that!
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -87,7 +94,7 @@ const createImg = normalizedData => {
 		ctx.fillStyle = colors[3];
 		ctx.fillRect(i, 255 - val, 1, val + 1);
 
-		var current_point_index = Math.floor(i / threshold);
+		var current_point_index = Math.floor(i / wave_data.block_size);
 		if (current_point_index > 0 && val > threshold && val > points[current_point_index]) {
 			points[current_point_index] = val;
 		}
@@ -95,32 +102,32 @@ const createImg = normalizedData => {
 
 	for (let i = 0; i < normalizedData.length; i++) {
 		//draw tick
-		if (i % 30 == 0) {
-			ctx.fillStyle = colors[1];
+		if (i % wave_data.block_size == 0) {
+			ctx.fillStyle = colors[2];
 			ctx.fillRect(i, 245, 1, 10);
 		}
 		//draw large tick
 		if (i % 1000 == 0 && i != 0) {
-			ctx.fillStyle = colors[1];
+			ctx.fillStyle = colors[2];
 			ctx.font = "10px Arial";
 			ctx.fillText(i/1000 + "K ms", i+5, 155);
 
-			ctx.fillStyle = colors[1];
+			ctx.fillStyle = colors[2];
 			ctx.fillRect(i-1, 155, 1, 100);
 		}
 	}
 
 	//Horizontal ticks
-	ctx.fillStyle = colors[1];
+	ctx.fillStyle = colors[2];
 	ctx.fillRect(0, 0, 100, 1);
 	
 	ctx.fillRect(0, 64, 50, 1);
 	ctx.font = "10px Arial";
-	ctx.fillText("191", 54, 64);
+	ctx.fillText("192", 54, 64);
 
 	ctx.fillRect(0, 128, 100, 1);
 	ctx.font = "10px Arial";
-	ctx.fillText("127.5", 104, 127);
+	ctx.fillText("128", 104, 127);
 
 	ctx.fillRect(0, 192, 50, 1);
 	ctx.font = "10px Arial";
@@ -135,7 +142,7 @@ const createImg = normalizedData => {
 	ctx.lineTo(normalizedData.length, 255-threshold);
 	ctx.stroke();
 
-
+	//Get
 	window.cpoints = [];
 	for (const [index, point] of points.entries()) {
 		var x = index * 30 + threshold / 2;
